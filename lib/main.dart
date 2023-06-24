@@ -31,61 +31,71 @@ class _HomepageState extends State<Homepage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(),
-      drawer: buildDrawer(),
-      body: Stack(
-        children: [
-          InkWell(
-            child: CarouselSlider(
-              items: imageList
-                  .map((item) => Image.asset(
-                        item['image_path'],
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                      ))
-                  .toList(),
-              carouselController: carouselController,
-              options: CarouselOptions(
-                  scrollPhysics: const BouncingScrollPhysics(),
-                  autoPlay: true,
-                  aspectRatio: 2,
-                  viewportFraction: 1,
-                  onPageChanged: (index, reason) {
-                    setState(() {
-                      currentindex = index;
-                    });
-                  }),
-            ),
-          ),
-          Positioned(
-            bottom: 10,
-            left: 0,
-            right: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: imageList.asMap().entries.map((entry) {
-                print(entry);
-                print(entry.key);
-                return GestureDetector(
-                  onTap: () => carouselController.animateToPage(entry.key),
-                  child: Container(
-                    width: currentindex == entry.key ? 17 : 7,
-                    height: 7.0,
-                    margin: const EdgeInsets.symmetric(horizontal: 3.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: currentindex == entry.key
-                          ? Colors.white
-                          : Colors.black,
-                    ),
+        appBar: buildAppBar(),
+        drawer: buildDrawer(),
+        body: Column(
+          children: [
+            // in this stack there is the image croausal which changs the images based on the given values
+            Stack(
+              children: [
+                InkWell(
+                  child: CarouselSlider(
+                    items: imageList
+                        .map((item) => Image.asset(
+                              item['image_path'],
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                            ))
+                        .toList(),
+                    carouselController: carouselController,
+                    options: CarouselOptions(
+                        scrollPhysics: const BouncingScrollPhysics(),
+                        autoPlay: true,
+                        aspectRatio: 2,
+                        viewportFraction: 1,
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            currentindex = index;
+                          });
+                        }),
                   ),
-                );
-              }).toList(),
+                ),
+                Positioned(
+                  bottom: 10,
+                  left: 0,
+                  right: 0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: imageList.asMap().entries.map((entry) {
+                      print(entry);
+                      print(entry.key);
+                      return GestureDetector(
+                        onTap: () =>
+                            carouselController.animateToPage(entry.key),
+                        child: Container(
+                          width: currentindex == entry.key ? 17 : 7,
+                          height: 7.0,
+                          margin: const EdgeInsets.symmetric(horizontal: 3.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: currentindex == entry.key
+                                ? Colors.white
+                                : Colors.black,
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
-    );
+            Padding(
+              //padding gives the space to the widgets
+              padding: EdgeInsets.all(8.0),
+              child: Text("Cateogories"),
+            )
+          ],
+        ));
   }
 
   Drawer buildDrawer() {
