@@ -1,5 +1,7 @@
+// Regular imports
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:e_commerce_app/components/Horizontal_list_view.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -67,8 +69,6 @@ class _HomepageState extends State<Homepage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: imageList.asMap().entries.map((entry) {
-                      print(entry);
-                      print(entry.key);
                       return GestureDetector(
                         onTap: () =>
                             carouselController.animateToPage(entry.key),
@@ -93,7 +93,10 @@ class _HomepageState extends State<Homepage> {
               //padding gives the space to the widgets
               padding: EdgeInsets.all(8.0),
               child: Text("Cateogories"),
-            )
+
+              //Horizontal list view begins here
+            ),
+            Horizontal_list_view()
           ],
         ));
   }
